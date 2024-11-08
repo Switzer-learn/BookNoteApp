@@ -1,0 +1,61 @@
+<%-include("./partials/header.ejs")%>
+
+
+<section class="topPage">
+<div class="container mt-5 fade-in border-bottom">
+    <div class="row mb-5">
+        <div class="col-6">
+            <div class="row">
+                <div class="col"><h1>Books That I Read</h1></div>
+            </div>
+            <div class="row">
+                <div class="col border-top border-bottom my-5"><p style="font-size:16pt">This website is dedicated to keeping track of books that I have read and will be updated regularly.</p></div>
+            </div>
+        </div>
+        <div class="col-6 d-flex flex-column justify-content-center">
+            <div class="row">
+                <a class="btn noto-sans-regular headerButton" href="/new" value="New Entry">New Entry</a>
+            </div>
+            <div class="row">
+                <a class="btn noto-sans-regular headerButton" href="#" value="Book List">Book List</a>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<section class="bodyBookDisplay">
+    <div class="container fade-in">
+        <%books.forEach((book)=>{%>
+        <div class="row py-3 border-top border-bottom">
+            <div class="col d-flex flex-column justify-content-center">
+                <div class="row">
+                    <div class="col pt-2"><h2 class="bookTitle"><%=book.title%></h2></div>
+                </div>
+                <div class="row my-5">
+                    <div class="col border-top border-bottom fs-3 text-wrap text-truncate" style="height:200px"><p class="bookDesc"><%=book.description%></h2></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col"><input type="submit" class="btn" value="Details"></div>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+                <img src="https://covers.openlibrary.org/b/isbn/<%=book.isbn%>-L.jpg" style="height:400px">
+            </div>
+        </div>
+        <%})%>
+    </div>
+</section>
+
+<section class="about-section mt-5 p-4 fade-in" id="about">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-10 text-center py-2"><h1>About This Project</h2></div>
+        <div class="col-10 text-center py-2"><p class="fs-4">This <strong>Bookkeeping Tool</strong> is a digital space where I track books I've read and add personal summaries for each. </p></div>
+        <div class="col-10 text-center py-2">Built with <strong>Node.js, Express.js, EJS, and PostgreSQL,</strong> this project is a part of my <strong>portfolio</strong> to showcase my skills as a <strong>full stack web developer</strong>.</p></div>
+        <div class="col-10 text-center py-2"><p class="fs-4"><strong>How to Use:</strong> Browse and manage your reading list with options to <strong>add, edit, or delete</strong> entries. Though still in development, this tool will evolve with more features to enhance usability and functionality.</p></div>
+    </div>
+</div>
+</section>
+</div>
+
+<%-include("./partials/footer.ejs")%>

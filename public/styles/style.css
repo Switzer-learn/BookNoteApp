@@ -1,0 +1,184 @@
+/* Body Background and Font */
+body {
+    font-family: 'Arial', sans-serif; /* Adjust if a specific font is needed */
+    background-color: #f9f7dc; /* Example gradient or light color background */
+    color: #763c00; /* Adjust to preferred dark color for readability */
+
+    /*font*/
+    font-family: "Noto Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+}
+
+.navbar {
+    background-color: #ffcb65; /* Soft pastel color matching your theme */
+}
+
+.navbar-brand, .nav-link {
+    color: #763c00 !important;
+    font-weight: 600;
+}
+
+h1{     
+    font-family: "Gravitas One", serif;
+    font-weight: 400;
+    font-style: normal;     
+}
+
+strong{
+    font-weight:600;
+}
+
+/* Header & Footer Styling */
+header h1 {
+    font-size: 2.5em;
+    color: #763c00; /* Adjusted to match desired dark shade */
+}
+
+header p {
+    font-size: 1.1em;
+    color: #763c00;
+}
+
+footer{
+    color: #763c00;
+    background-color: #ffcb65;
+
+    font-family: "Noto Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+}
+
+/* About Section */
+.about-section {
+    background-color: #f9f7dc; /* Light pastel color for section background */
+    border-radius: 8px;
+    color: #763c00; /* Dark color matching your theme */
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.about-section h2 {
+    font-size: 1.5em;
+    color: #763c00;
+}
+
+.about-section p {
+    font-size: 1em;
+    color: #763c00;
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.headerButton{
+    background: #763c00;
+    color: #f9f7dc;
+    width: 200px;
+    margin: 50px;
+}
+
+/* Fade-in Animation */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/*Fonts*/
+
+.noto-sans-regular {
+  font-family: "Noto Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+.gravitas-one{
+    font-family: "Gravitas One", serif;
+    font-weight: 400;
+    font-style: normal;  
+}
+/*temp*/
+
+div{
+    border:1px solid black;
+}
+
+/* loading animation */
+.image-container {
+    position: relative;
+    width: fit-content; /* Adjust based on your image size */
+}
+
+#loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #3498db;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+#imagePreview {
+    display: none; /* Initially hidden until loaded */
+}
+
+
+  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Add animation to "page content" */
+  .animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s
+  }
+  
+  @-webkit-keyframes animatebottom {
+    from { bottom:-100px; opacity:0 } 
+    to { bottom:0px; opacity:1 }
+  }
+  
+  @keyframes animatebottom { 
+    from{ bottom:-100px; opacity:0 } 
+    to{ bottom:0; opacity:1 }
+  }

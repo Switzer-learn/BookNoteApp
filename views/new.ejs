@@ -1,0 +1,105 @@
+<%- include("./partials/header.ejs")%>
+
+<section class="NewBooks">
+    <div class="container">
+        <div class="row">
+            <h1>Add New Book</h1>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row px-2 py-2">
+                    <div class="col-3">
+                        <p>Title</p>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="title" class="form-control w-100" placeholder="Enter book title here" required>
+                    </div>
+                </div>
+                <div class="row px-2 py-2">
+                    <div class="col-3">
+                        <p>Description</p>
+                    </div>
+                    <div class="col">
+                        <textarea name="description" class="form-control w-100" style="height: 200px;" placeholder="Enter book description here" required></textarea>
+                    </div>
+                </div>
+                <div class="row px-2 py-2">
+                    <div class="col-3">
+                        <p>Summary</p>
+                    </div>
+                    <div class="col">
+                        <textarea name="summary" class="form-control w-100" style="height: 200px;" placeholder="Enter book summary here"></textarea>
+                    </div>
+                </div>
+                <div class="row px-2 py-2">
+                    <div class="col-3">
+                        <p>Personal Note</p>
+                    </div>
+                    <div class="col">
+                        <textarea name="personalNote" class="form-control w-100" style="height: 200px;" placeholder="Enter personal note here"></textarea>
+                    </div>
+                </div>
+                <div class="row px-2 py-2">
+                    <div class="col-3">
+                        <p>ISBN</p>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="isbn" id="isbn" class="form-control w-100" placeholder="Enter book ISBN here">
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row px-2 py-2">
+                    <button class="btn btn-success" id="checkImgBtn" name="checkImgBtn">Check Image</button>
+                </div>
+                <div class="row image-container py-3 px-3 d-flex justify-content-center">
+                    <div id="loader" style="display:none"></div>
+                    <img src="" style="display:none;" class="animate-bottom border" id="imagePreview" name="imagePreview" style="height:400px">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+$(document).ready(function() {
+    $("#checkImgBtn").click(function() {
+        // Show the loader before starting image loading
+        $("#loader").show();
+        $("#imagePreview").hide(); // Hide the image until it's fully loaded
+        console.log("Loading image...");
+
+        // Set the image source to trigger the loading process
+        $("#imagePreview").attr("src", "https://covers.openlibrary.org/b/isbn/" + $("#isbn").val() + "-L.jpg");
+
+        // When the image finishes loading, hide the loader and show the image
+        $("#imagePreview").on("load", function() {
+            $("#loader").hide(); // Hide the loader once the image is loaded
+            $("#imagePreview").show(); // Show the loaded image
+            console.log("Image loaded.");
+        });
+    });
+});
+
+function myFunction() {
+    $("#loader").show(); // Show loader when function is called
+    console.log("myFunction called");
+    try {
+        if($("#imagePreview").attr("src") !== "") {
+            showPage();
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function showPage() {
+    $("#loader").hide(); // Hide the loader if the image has loaded
+    $("#imagePreview").show(); // Show the image
+}
+
+</script>
+
+<%- include("./partials/footer.ejs")%>
+
+
+// book title, desc, summary, personal_note,isbn
