@@ -15,7 +15,7 @@
                 <a class="btn noto-sans-regular headerButton" href="/new" value="New Entry">New Entry</a>
             </div>
             <div class="row">
-                <a class="btn noto-sans-regular headerButton" href="#" value="Book List">Book List</a>
+                <a class="btn noto-sans-regular headerButton" href="/booklist" value="Book List">Book List</a>
             </div>
         </div>
     </div>
@@ -24,13 +24,16 @@
 <section class="bodyBookDisplay">
     <div class="container fade-in">
         <%books.forEach((book)=>{%>
-        <div class="row py-3 border-top border-bottom">
-            <div class="col d-flex flex-column justify-content-center">
+        <div class="row py-3 flex-row-reverse border-top border-bottom">
+            <div class="col-lg-6 d-flex justify-content-center">
+                <img src="https://covers.openlibrary.org/b/isbn/<%=book.isbn%>-L.jpg" style="height:400px">
+            </div>
+            <div class="col-lg-6 d-flex flex-column justify-content-center">
                 <div class="row">
                     <div class="col pt-2"><h2 class="bookTitle"><%=book.title%></h2></div>
                 </div>
                 <div class="row my-5">
-                    <div class="col border-top border-bottom fs-3 text-wrap text-truncate" style="height:200px"><p class="bookDesc"><%=book.description%></h2></div>
+                    <div class="col border-top border-bottom fs-3 text-wrap text-truncate py-2" style="height:200px"><p class="bookDesc"><%=book.description%></h2></div>
                 </div>
                 <div class="row mb-2">
                     <div class="col">
@@ -41,9 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col d-flex justify-content-center">
-                <img src="https://covers.openlibrary.org/b/isbn/<%=book.isbn%>-L.jpg" style="height:400px">
-            </div>
+            
         </div>
         <%})%>
     </div>

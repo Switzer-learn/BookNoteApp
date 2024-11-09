@@ -1,7 +1,19 @@
 <%- include("./partials/header.ejs")%>
-
+<%
+let id,title,desc,summary,pNote,isbn;
+let action="/Submit";
+if(locals.book){
+    id=book[0].id;
+    title=book[0].title;
+    desc=book[0].description;
+    summary=book[0].summary;
+    pNote=book[0].personal_note;
+    isbn=book[0].isbn;
+    action="/editBook";
+}%>
 <section class="NewBooks">
     <div class="container">
+        <form id="formId" method="post">
         <div class="row">
             <h1>Add New Book</h1>
         </div>
@@ -12,7 +24,7 @@
                         <p>Title</p>
                     </div>
                     <div class="col">
-                        <input type="text" name="title" class="form-control w-100" placeholder="Enter book title here" required>
+                        <input type="text" name="title" class="form-control w-100" placeholder="Enter book title here" value="<%=title%>" required>
                     </div>
                 </div>
                 <div class="row px-2 py-2">
@@ -20,7 +32,7 @@
                         <p>Description</p>
                     </div>
                     <div class="col">
-                        <textarea name="description" class="form-control w-100" style="height: 200px;" placeholder="Enter book description here" required></textarea>
+                        <textarea name="description" class="form-control w-100" style="height: 200px;" placeholder="Enter book description here" required><%=desc%></textarea>
                     </div>
                 </div>
                 <div class="row px-2 py-2">
@@ -28,7 +40,7 @@
                         <p>Summary</p>
                     </div>
                     <div class="col">
-                        <textarea name="summary" class="form-control w-100" style="height: 200px;" placeholder="Enter book summary here"></textarea>
+                        <textarea name="summary" class="form-control w-100" style="height: 200px;" placeholder="Enter book summary here"><%=summary%></textarea>
                     </div>
                 </div>
                 <div class="row px-2 py-2">
@@ -36,7 +48,7 @@
                         <p>Personal Note</p>
                     </div>
                     <div class="col">
-                        <textarea name="personalNote" class="form-control w-100" style="height: 200px;" placeholder="Enter personal note here"></textarea>
+                        <textarea name="personalNote" class="form-control w-100" style="height: 200px;" placeholder="Enter personal note here"><%=pNote%></textarea>
                     </div>
                 </div>
                 <div class="row px-2 py-2">
@@ -44,13 +56,13 @@
                         <p>ISBN</p>
                     </div>
                     <div class="col">
-                        <input type="text" name="isbn" id="isbn" class="form-control w-100" placeholder="Enter book ISBN here">
+                        <input type="text" name="isbn" id="isbn" value="<%=isbn%>" class="form-control w-100" placeholder="Enter book ISBN here">
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="row px-2 py-2">
-                    <button class="btn btn-success" id="checkImgBtn" name="checkImgBtn">Check Image</button>
+                    <button type="button" class="btn btn-success" id="checkImgBtn" name="checkImgBtn">Check Image</button>
                 </div>
                 <div class="row image-container py-3 px-3 d-flex justify-content-center">
                     <div id="loader" style="display:none"></div>
@@ -58,6 +70,11 @@
                 </div>
             </div>
         </div>
+        <div class="row justify-content-center py-4">
+            <input type="hidden" name="id" value="<%=id%>">
+            <input type="submit" class="btn btn-primary" value="Submit" formaction="<%=action%>"> 
+        </div>
+    </form>
     </div>
 </section>
 <script>
@@ -79,9 +96,9 @@
             });
         });
     });
+
+
+
 </script>
 
 <%- include("./partials/footer.ejs")%>
-
-
-// book title, desc, summary, personal_note,isbn

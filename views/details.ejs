@@ -1,6 +1,7 @@
 <%-include("./partials/header.ejs")%>
 <section class="bookDetail">
     <div class="container">
+        <form id="detailForm" method="post">
         <div class="row py-3 px-2 justify-content-center">
             <div class="image-container" style="height:300px">
                 <div id="loader" style="display:none"></div>
@@ -13,7 +14,7 @@
                     <p class="text-end">Title :</p>
                 </div>
                 <div class="col px-2">
-                    <p><%=book[0].title%></p>
+                    <p name="title"><%=book[0].title%></p>
                 </div>
             </div>
             <div class="row py-3 px-2">
@@ -21,7 +22,7 @@
                     <p>Description :</p>
                 </div>
                 <div class="col px-2">
-                    <p><%=book[0].description%></p>
+                    <p name="description"><%=book[0].description%></p>
                 </div>
             </div>
             <div class="row py-3 px-2">
@@ -29,7 +30,7 @@
                     <p>Summary :</p>
                 </div>
                 <div class="col px-2">
-                    <p><%=book[0].summary%></p>
+                    <p name="summary"><%=book[0].summary%></p>
                 </div>
             </div>
             <div class="row py-3 px-2">
@@ -37,7 +38,7 @@
                     <p>Personal Note :</p>
                 </div>
                 <div class="col px-2">
-                    <p><%=book[0].personal_note%></p>
+                    <p name="personalNote"><%=book[0].personal_note%></p>
                 </div>
             </div>
             <div class="row py-3 px-2">
@@ -45,10 +46,20 @@
                     <p>ISBN :</p>
                 </div>
                 <div class="col px-2">
-                    <p><%=book[0].isbn%></p>
+                    <p name="isbn"><%=book[0].isbn%></p>
                 </div>
             </div>
         </div>
+        <div class="row d-flex justify-content-center pb-3">
+            <div class="col-2 text-center">
+                <input type="hidden" name="id" value="<%=book[0].id%>">
+                <input type="submit" class="btn btn-success" value="Edit" formaction="/edit">
+            </div>
+            <div class="col-2 text-center">
+                <input type="submit" class="btn btn-danger" value="Delete" formaction="/delete">
+            </div>
+        </div>
+    </form>
     </div>
 </section>
 <script>
