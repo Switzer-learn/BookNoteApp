@@ -61,42 +61,24 @@
     </div>
 </section>
 <script>
-$(document).ready(function() {
-    $("#checkImgBtn").click(function() {
-        // Show the loader before starting image loading
-        $("#loader").show();
-        $("#imagePreview").hide(); // Hide the image until it's fully loaded
-        console.log("Loading image...");
-
-        // Set the image source to trigger the loading process
-        $("#imagePreview").attr("src", "https://covers.openlibrary.org/b/isbn/" + $("#isbn").val() + "-L.jpg");
-
-        // When the image finishes loading, hide the loader and show the image
-        $("#imagePreview").on("load", function() {
-            $("#loader").hide(); // Hide the loader once the image is loaded
-            $("#imagePreview").show(); // Show the loaded image
-            console.log("Image loaded.");
+    $(document).ready(function() {
+        $("#checkImgBtn").click(function() {
+            // Show the loader before starting image loading
+            $("#loader").show();
+            $("#imagePreview").hide(); // Hide the image until it's fully loaded
+            console.log("Loading image...");
+    
+            // Set the image source to trigger the loading process
+            $("#imagePreview").attr("src", "https://covers.openlibrary.org/b/isbn/" + $("#isbn").val() + "-L.jpg");
+    
+            // When the image finishes loading, hide the loader and show the image
+            $("#imagePreview").on("load", function() {
+                $("#loader").hide(); // Hide the loader once the image is loaded
+                $("#imagePreview").show(); // Show the loaded image
+                console.log("Image loaded.");
+            });
         });
     });
-});
-
-function myFunction() {
-    $("#loader").show(); // Show loader when function is called
-    console.log("myFunction called");
-    try {
-        if($("#imagePreview").attr("src") !== "") {
-            showPage();
-        }
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-function showPage() {
-    $("#loader").hide(); // Hide the loader if the image has loaded
-    $("#imagePreview").show(); // Show the image
-}
-
 </script>
 
 <%- include("./partials/footer.ejs")%>

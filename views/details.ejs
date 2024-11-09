@@ -1,0 +1,69 @@
+<%-include("./partials/header.ejs")%>
+<section class="bookDetail">
+    <div class="container">
+        <div class="row py-3 px-2 justify-content-center">
+            <div class="image-container" style="height:300px">
+                <div id="loader" style="display:none"></div>
+                <img src="https://covers.openlibrary.org/b/isbn/<%=book[0].isbn%>-L.jpg" id="imagePreview" class="align-self-center" style="height:300px; display:none">
+            </div>
+        </div>
+        <div class="detailContent">
+            <div class="row py-3 px-2">
+                <div class="col-2">
+                    <p class="text-end">Title :</p>
+                </div>
+                <div class="col px-2">
+                    <p><%=book[0].title%></p>
+                </div>
+            </div>
+            <div class="row py-3 px-2">
+                <div class="col-2 text-end">
+                    <p>Description :</p>
+                </div>
+                <div class="col px-2">
+                    <p><%=book[0].description%></p>
+                </div>
+            </div>
+            <div class="row py-3 px-2">
+                <div class="col-2 text-end">
+                    <p>Summary :</p>
+                </div>
+                <div class="col px-2">
+                    <p><%=book[0].summary%></p>
+                </div>
+            </div>
+            <div class="row py-3 px-2">
+                <div class="col-2 text-end">
+                    <p>Personal Note :</p>
+                </div>
+                <div class="col px-2">
+                    <p><%=book[0].personal_note%></p>
+                </div>
+            </div>
+            <div class="row py-3 px-2">
+                <div class="col-2 text-end">
+                    <p>ISBN :</p>
+                </div>
+                <div class="col px-2">
+                    <p><%=book[0].isbn%></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function() {
+            // Show the loader before starting image loading
+            $("#loader").show();
+            $("#imagePreview").hide(); // Hide the image until it's fully loaded
+            console.log("Loading image...");
+    
+            // When the image finishes loading, hide the loader and show the image
+            $("#imagePreview").on("load", function() {
+                $("#loader").hide(); // Hide the loader once the image is loaded
+                $("#imagePreview").show(); // Show the loaded image
+                console.log("Image loaded.");
+            });
+        });
+</script>
+<%-include("./partials/footer.ejs")%>

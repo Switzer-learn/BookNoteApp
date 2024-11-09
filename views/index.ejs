@@ -1,6 +1,4 @@
 <%-include("./partials/header.ejs")%>
-
-
 <section class="topPage">
 <div class="container mt-5 fade-in border-bottom">
     <div class="row mb-5">
@@ -12,7 +10,7 @@
                 <div class="col border-top border-bottom my-5"><p style="font-size:16pt">This website is dedicated to keeping track of books that I have read and will be updated regularly.</p></div>
             </div>
         </div>
-        <div class="col-6 d-flex flex-column justify-content-center">
+        <div class="col-6 d-flex flex-column justify-content-center align-items-center">
             <div class="row">
                 <a class="btn noto-sans-regular headerButton" href="/new" value="New Entry">New Entry</a>
             </div>
@@ -35,7 +33,12 @@
                     <div class="col border-top border-bottom fs-3 text-wrap text-truncate" style="height:200px"><p class="bookDesc"><%=book.description%></h2></div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col"><input type="submit" class="btn" value="Details"></div>
+                    <div class="col">
+                        <form action="/detail" method="post">
+                            <input type="hidden" name="id" value="<%=book.id%>">
+                            <input type="submit" class="btn" value="Details">
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="col d-flex justify-content-center">
@@ -56,6 +59,5 @@
     </div>
 </div>
 </section>
-</div>
 
 <%-include("./partials/footer.ejs")%>

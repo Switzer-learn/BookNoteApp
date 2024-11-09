@@ -42,8 +42,26 @@ app.get("/",async(req,res)=>{
     res.render("index.ejs",{books:result});
 })
 
+app.post("/detail",async(req,res)=>{
+    const id = req.body.id;
+    //console.log(id);
+    try {
+        const data = (await db.query("SELECT * FROM books WHERE id=$1",[id])).rows;
+        //console.log(data);    
+        res.render("details.ejs",{book:data});
+    } catch (error) {
+        console.log(error);
+    }
+    
+    
+})
+
 app.get("/new",(req,res)=>{
     res.render("new.ejs");
+})
+
+app.post("/new",(req,res)=>{
+
 })
 
 app.listen(port,(err,res)=>{
