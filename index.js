@@ -1,27 +1,21 @@
 import e from "express";
 import bodyParser from "body-parser";
-import pg from "pg";
-import ejs from "ejs";
-import axios from "axios";
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 const app=e();
 const port=3000;
 const apiUrl="https://covers.openlibrary.org/b/isbn/";
 let passedId=0;
 
-const db=new pg.Client({
-    user:"postgres",
-    password:"123456",
-    host:"localhost",
-    database:"BookThatIRead",
-    port:5432
-})
 
-db.connect();
 
 async function fetchBookData(){
-    const result = await db.query("SELECT * FROM Books");
-    return result.rows;
+    const result = await supabase.from("books").select("*")
+    return result;
 }
 
 async function fetchUserData(username,password){
@@ -38,46 +32,50 @@ app.use(e.static("public"));
 
 app.get("/",async(req,res)=>{
     const data= await fetchBookData();
-    let result=[];
-    data.forEach(item=>(result.push(item)));
-    res.render("index.ejs",{books:result});
+    res.render("index.ejs",{books:data.data});
 })
 
 app.get("/booklist",async(req,res)=>{
     const data = await fetchBookData();
-    let result=[];
-    data.forEach(item=>(result.push(item)));
-    res.render("booklist.ejs",{books:result});
+    res.render("booklist.ejs",{books:data.data});
 })
 
+app.get("/detail",async(req,res)=>{
+    try{
+        const data = await supabase.from("books").select("*").eq('id',passedId);
+        passedId=0;
+        res.render("details.ejs",{book:data.data})
+    } catch (error){
+        console.log(error);
+    }
+})
+
+//This edit is to enter new.ejs passing data to be edited from details
 app.post("/edit",async(req,res)=>{
+    console.log("edit route",req.body);
     const id = parseInt(req.body.id);
-    //console.log(id);
     try {
-        const data = (await db.query("SELECT * FROM books WHERE id=$1",[id])).rows;
-        //console.log(data);    
-        res.render("new.ejs",{book:data});
+        const data = await supabase.from("books").select("*").eq('id',id)
+        res.render("new.ejs",{book:data.data})
     } catch (error) {
         console.log(error);
     }
 })
 
 app.post("/editBook",async(req,res)=>{
-    //console.log("editbook route");
     const data=req.body;
+    console.log("submitted data ",data);
     try {
-        await db.query("UPDATE books SET title=$1,description=$2,summary=$3,personal_note=$4,isbn=$5 WHERE id=$6",[data.title,data.description,data.summary,data.personalNote,data.isbn,data.id]);
-        passedId=data.id;
-        res.redirect("/detail");
-    } catch (error) {
-        console.log(error);
-    }
-})
-
-app.get("/detail", async(req,res)=>{
-    try {
-        const data = (await db.query("SELECT * FROM books WHERE id=$1",[passedId])).rows; 
-        res.render("details.ejs",{book:data});
+        const {error} = await supabase.from("books").update({
+            title:data.title,
+            description:data.description,
+            summary:data.summary,
+            personal_note:data.personalNote,
+            isbn:data.isbn
+        }).eq('id',data.id);
+        if(error)console.log(error)
+        passedId = data.id;
+        res.redirect("/detail")
     } catch (error) {
         console.log(error);
     }
@@ -86,9 +84,8 @@ app.get("/detail", async(req,res)=>{
 app.post("/detail",async(req,res)=>{
     const id = req.body.id;
     try {
-        const data = (await db.query("SELECT * FROM books WHERE id=$1",[id])).rows;
-        res.render("details.ejs",{book:data});
-        passedId=0;
+        const data = await supabase.from("books").select("*").eq('id',req.body.id);
+        res.render("details.ejs",{book:data.data})
     } catch (error) {
         console.log(error);
     }
@@ -96,18 +93,36 @@ app.post("/detail",async(req,res)=>{
 
 app.post("/delete",async(req,res)=>{
     const id=req.body.id;
-    try{
+    try {
+        const {error} = await supabase.from("books").delete().eq("id",id);
+        if(error) console.log(error);
+        res.redirect("/");
+    } catch (error) {
+        console.log(error);
+    }
+    /*try{
         await db.query("DELETE FROM books WHERE id=$1",[id]);
         res.redirect("/");
     }catch(error){
         console.log(error);
-    }
+    }*/
 })
 
 app.post("/submit",async(req,res)=>{
     const data=req.body;
     try {
-        await db.query("INSERT INTO books(title,description,summary,personal_note,isbn) VALUES ($1,$2,$3,$4,$5)",[data.title,data.description,data.summary,data.personalNote,data.isbn]);
+        const {error} = await supabase.from("books").insert({
+            title:data.title,
+            description:data.description,
+            summary:data.summary,
+            personal_note:data.personalNote,
+            isbn:data.isbn
+        }).returns();
+        if(error){
+            console.log(error)
+        } else{
+            console.log("Insert new book succeed!")
+        }
         res.redirect("/");
     } catch (error) {
         console.log(error);
