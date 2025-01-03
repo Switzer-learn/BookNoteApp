@@ -23,6 +23,7 @@
 </section>
 <section class="bodyBookDisplay">
     <div class="container fade-in">
+        <%if(books){%>
         <%books.forEach((book)=>{%>
         <div class="row py-3 flex-row-reverse border-top border-bottom">
             <div class="col-lg-6 d-flex justify-content-center">
@@ -46,7 +47,7 @@
             </div>
             
         </div>
-        <%})%>
+        <%})}%>
     </div>
 </section>
 
